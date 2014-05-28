@@ -100,7 +100,7 @@ class Builder
         # PC
         requirejs.optimize(opts_pc, (buildResponse) =>
             Q.fcall =>
-                os.copy @require_temp_path + '/js/player.js', @dist_path + '/player.js'
+                os.copy @require_temp_path + '/js/player.js', @dist_path + '/muplayer.js'
             .then =>
                 opts_webapp = _.cloneDeep opts_pc
                 opts_webapp.pragmas.FlashCoreExclude = true
@@ -108,7 +108,7 @@ class Builder
                 # Webapp
                 requirejs.optimize(opts_webapp, (buildResponse) =>
                     Q.fcall =>
-                        os.copy @require_temp_path + '/js/player.js', @dist_path + '/zepto-player.js'
+                        os.copy @require_temp_path + '/js/player.js', @dist_path + '/zepto-muplayer.js'
                     .then ->
                         console.log ">> Compile client js done.".cyan
                         deferred.resolve buildResponse
@@ -133,8 +133,8 @@ class Builder
 
         Q.all(
             [
-                @dist_path + '/player'
-                @dist_path + '/zepto-player'
+                @dist_path + '/muplayer'
+                @dist_path + '/zepto-muplayer'
             ].map (el) ->
                 compress el
         ).then ->
