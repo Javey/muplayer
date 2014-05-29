@@ -45,3 +45,7 @@ bower_components
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# For static doc #
+##################
+!bower_components/bootstrap
