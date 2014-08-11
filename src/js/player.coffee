@@ -127,13 +127,10 @@ do (root = this, factory = (cfg, utils, Events, Playlist, Engine) ->
                 @trigger('player:play', startTime)
                 def.resolve()
 
-            if @getState() in [STATES.NOT_INIT, STATES.STOP, STATES.END]
                 # XXX: 应该在_fetch中决定是否发起选链。
                 # 即是否从cache中取, 是否setUrl都是依据_fetch的实现去决定。
                 # 如果继承时覆盖重写_fetch, 这些都要自己权衡。
-                @_fetch().done () =>
-                    play()
-            else
+            @_fetch().done () =>
                 play()
 
             return def.promise()
@@ -198,15 +195,11 @@ do (root = this, factory = (cfg, utils, Events, Playlist, Engine) ->
 
         ###*
          * 获取当前歌曲（根据业务逻辑和选链_fetch方法的具体实现可以是音频文件url，也可以是标识id，默认直接传入音频文件url即可）。
-         * 如果之前没有主动执行过setCur，则认为播放列表的第一首歌是当前歌曲。
          * @return {String}
         ###
         getCur: () ->
             pl = @playlist
             cur = pl.cur
-            if not cur and @getSongsNum()
-                cur = pl.list[0]
-                pl.setCur(cur)
             cur + ''
 
         ###*

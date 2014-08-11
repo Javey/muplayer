@@ -2355,7 +2355,7 @@ var __hasProp = {}.hasOwnProperty,
      */
 
     Player.prototype.play = function(startTime) {
-      var def, engine, play, _ref1;
+      var def, engine, play;
       startTime = ~~startTime;
       def = $.Deferred();
       engine = this.engine;
@@ -2370,15 +2370,11 @@ var __hasProp = {}.hasOwnProperty,
           return def.resolve();
         };
       })(this);
-      if ((_ref1 = this.getState()) === STATES.NOT_INIT || _ref1 === STATES.STOP || _ref1 === STATES.END) {
-        this._fetch().done((function(_this) {
-          return function() {
-            return play();
-          };
-        })(this));
-      } else {
-        play();
-      }
+      this._fetch().done((function(_this) {
+        return function() {
+          return play();
+        };
+      })(this));
       return def.promise();
     };
 
@@ -2464,7 +2460,6 @@ var __hasProp = {}.hasOwnProperty,
 
     /**
      * 获取当前歌曲（根据业务逻辑和选链_fetch方法的具体实现可以是音频文件url，也可以是标识id，默认直接传入音频文件url即可）。
-     * 如果之前没有主动执行过setCur，则认为播放列表的第一首歌是当前歌曲。
      * @return {String}
      */
 
@@ -2472,10 +2467,6 @@ var __hasProp = {}.hasOwnProperty,
       var cur, pl;
       pl = this.playlist;
       cur = pl.cur;
-      if (!cur && this.getSongsNum()) {
-        cur = pl.list[0];
-        pl.setCur(cur);
-      }
       return cur + '';
     };
 
