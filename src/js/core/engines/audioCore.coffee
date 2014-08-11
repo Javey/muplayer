@@ -69,7 +69,6 @@ do (root = this, factory = (cfg, utils, EngineCore, Modernizr) ->
                 trigger.call(@, type, listener) if @getUrl() isnt @opts.emptyMP3
 
             buffer = (per) =>
-                @setState(STATES.BUFFERING)
                 @trigger(EVENTS.PROGRESS, per or @getLoadedPercent())
 
             progressTimer = null

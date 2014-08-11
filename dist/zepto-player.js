@@ -1294,7 +1294,6 @@ var __hasProp = {}.hasOwnProperty,
       })(this);
       buffer = (function(_this) {
         return function(per) {
-          _this.setState(STATES.BUFFERING);
           return _this.trigger(EVENTS.PROGRESS, per || _this.getLoadedPercent());
         };
       })(this);
