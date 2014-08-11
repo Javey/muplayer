@@ -1324,8 +1324,10 @@ var __hasProp = {}.hasOwnProperty,
         };
       })(this)).on('error', (function(_this) {
         return function() {
-          _this.setState(STATES.END);
-          return _this.trigger(EVENTS.ERROR, ERRCODE.MEDIA_ERR_NETWORK);
+          if (_this.getUrl()) {
+            _this.setState(STATES.END);
+            return _this.trigger(EVENTS.ERROR, ERRCODE.MEDIA_ERR_NETWORK);
+          }
         };
       })(this)).on('waiting', (function(_this) {
         return function() {

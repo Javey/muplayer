@@ -88,8 +88,10 @@ do (root = this, factory = (cfg, utils, EngineCore, Modernizr) ->
             ).on('ended', () =>
                 @setState(STATES.END)
             ).on('error', () =>
-                @setState(STATES.END)
-                @trigger(EVENTS.ERROR, ERRCODE.MEDIA_ERR_NETWORK)
+                #当url置空时，会导致audio error，排除该情况
+                if @getUrl()
+                    @setState(STATES.END)
+                    @trigger(EVENTS.ERROR, ERRCODE.MEDIA_ERR_NETWORK)
             ).on('waiting', () =>
                 @setState(@getCurrentPosition() and STATES.BUFFERING or STATES.PREBUFFER)
             ).on('timeupdate', () =>
