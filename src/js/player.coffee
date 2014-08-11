@@ -151,9 +151,9 @@ do (root = this, factory = (cfg, utils, Events, Playlist, Engine) ->
          * 停止播放，会将当前播放位置重置。即stop后执行play，将从音频头部重新播放。会派发 <code>player:stop</code> 事件。
          * @return {player}
         ###
-        stop: ->
+        stop: (auto) ->
             @engine.stop()
-            @trigger('player:stop')
+            @trigger('player:stop', {auto: auto})
             @
 
         ###*
@@ -187,7 +187,7 @@ do (root = this, factory = (cfg, utils, Events, Playlist, Engine) ->
         ###
         next: (auto) ->
             cur = @getCur()
-            @stop()
+            @stop(auto)
             if @getSongsNum() and @playlist.next()
                 @trigger('player:next', {
                     auto: auto,
@@ -219,9 +219,9 @@ do (root = this, factory = (cfg, utils, Events, Playlist, Engine) ->
             if not sid and @getSongsNum()
                 sid = pl.list[0]
             if sid and @_sid isnt sid
+                @stop()
                 pl.setCur(sid)
                 @_sid = sid
-                @stop()
             @
 
         ###*

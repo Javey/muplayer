@@ -2399,9 +2399,11 @@ var __hasProp = {}.hasOwnProperty,
      * @return {player}
      */
 
-    Player.prototype.stop = function() {
+    Player.prototype.stop = function(auto) {
       this.engine.stop();
-      this.trigger('player:stop');
+      this.trigger('player:stop', {
+        auto: auto
+      });
       return this;
     };
 
@@ -2447,7 +2449,7 @@ var __hasProp = {}.hasOwnProperty,
     Player.prototype.next = function(auto) {
       var cur;
       cur = this.getCur();
-      this.stop();
+      this.stop(auto);
       if (this.getSongsNum() && this.playlist.next()) {
         this.trigger('player:next', {
           auto: auto,
@@ -2490,9 +2492,9 @@ var __hasProp = {}.hasOwnProperty,
         sid = pl.list[0];
       }
       if (sid && this._sid !== sid) {
+        this.stop();
         pl.setCur(sid);
         this._sid = sid;
-        this.stop();
       }
       return this;
     };
