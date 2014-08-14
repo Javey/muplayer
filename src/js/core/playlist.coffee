@@ -106,6 +106,7 @@ do (root = this, factory = (utils, Events) ->
                 when 'list'
                     if i is l - 1
                         @cur = list[0]
+                        @trigger('playlist:end')
                         return false
                 when 'list-random'
                     i = @_listRandomIndex++

@@ -115,6 +115,8 @@ do (root = this, factory = (cfg, utils, Events, Playlist, Engine) ->
          * @return {player}
         ###
         play: (startTime) ->
+            if @getCur() == ''
+                @setCur()
             startTime = ~~startTime
             def = $.Deferred()
             engine = @engine
@@ -127,9 +129,9 @@ do (root = this, factory = (cfg, utils, Events, Playlist, Engine) ->
                 @trigger('player:play', startTime)
                 def.resolve()
 
-                # XXX: 应该在_fetch中决定是否发起选链。
-                # 即是否从cache中取, 是否setUrl都是依据_fetch的实现去决定。
-                # 如果继承时覆盖重写_fetch, 这些都要自己权衡。
+            # XXX: 应该在_fetch中决定是否发起选链。
+            # 即是否从cache中取, 是否setUrl都是依据_fetch的实现去决定。
+            # 如果继承时覆盖重写_fetch, 这些都要自己权衡。
             @_fetch().done () =>
                 play()
 

@@ -549,6 +549,7 @@ var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; 
         case 'list':
           if (i === l - 1) {
             this.cur = list[0];
+            this.trigger('playlist:end');
             return false;
           }
           break;
@@ -2356,6 +2357,9 @@ var __hasProp = {}.hasOwnProperty,
 
     Player.prototype.play = function(startTime) {
       var def, engine, play;
+      if (this.getCur() === '') {
+        this.setCur();
+      }
       startTime = ~~startTime;
       def = $.Deferred();
       engine = this.engine;
