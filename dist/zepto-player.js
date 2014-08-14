@@ -2081,6 +2081,7 @@ var __hasProp = {}.hasOwnProperty,
      */
 
     Player.prototype.reset = function() {
+      this._sid = '';
       this.playlist.reset();
       this.engine.reset();
       this.trigger('player:reset');

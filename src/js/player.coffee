@@ -265,6 +265,7 @@ do (root = this, factory = (cfg, utils, Events, Playlist, Engine) ->
          * @return {player}
         ###
         reset: () ->
+            @_sid = ''
             @playlist.reset()
             @engine.reset()
             @trigger('player:reset')
